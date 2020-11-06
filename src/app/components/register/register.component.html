@@ -2,20 +2,23 @@
     <div class="header">
         <span class="title">SISTEMA DE JUDOCA</span>
         <span>
-            <input type="text" placeholder="Buscar cliente (CPF)" (input)="this.searchText = $event.target.value" [value]="this.searchText" (keydown)="$event.key == 'Enter' ? redirectTo() : null"><label (click)="redirectTo()"><fa-icon [icon]="faSearch"></fa-icon></label>
+            <span class="button" (click)="redirectTo('/search/entities')">Ver entidades</span>
+            <input type="text" placeholder="Buscar cliente (CPF)" (input)="this.searchText = $event.target.value" [value]="this.searchText" (keydown)="$event.key == 'Enter' ? redirectTo('/search/'+this.searchText) : null"><label (click)="redirectTo('/search/'+this.searchText)"><fa-icon [icon]="faSearch"></fa-icon></label>
         </span>
     </div>
 
-    <div class="body">
-        <span class="title mt-2 ml-2" *ngIf="registerType == 0">{{message}}</span>
+    <div class="body" id="registerBody">
+        <span class="title mt-2 ml-2" *ngIf="registerType == 0 || (registerType == 3 && message != '')">{{message}}</span>
         <div class="button-container" *ngIf="registerType == 0">
             <div class="button" (click)="registerType = 1">Cadastrar novo aluno</div>
             <div class="button" (click)="registerType = 2">Cadastrar novo professor</div>
+            <div class="button" (click)="registerType = 4">Cadastrar nova entidade</div>
         </div>
 
-        <div class="form-container" *ngIf="registerType == 1 || registerType == 2">
-            <span class="title">REGISTRO DE {{registerType == 1 ? 'ALUNO' : 'PROFESSOR'}}</span>
-            <div class="form">
+        <div class="form-container" *ngIf="registerType != 0">
+            <span class="title" *ngIf="registerType == 1 || registerType == 2">REGISTRO DE {{registerType == 1 ? 'ALUNO' : 'PROFESSOR'}}</span>
+            <span class="title" *ngIf="registerType == 3">ATUALIZAÇÃO DE PERFIL</span>
+            <div class="form" *ngIf="registerType == 1 || registerType == 2 || registerType == 3">
                 <input type="text" id="form-nome" (input)="this.newClient.nome = $event.target.value" [value]="this.newClient.nome"> <label for="form-nome">Nome *</label>
                 <input type="text" id="form-dataNasc" (input)="this.newClient.dataNasc = $event.target.value" [value]="this.newClient.dataNasc"> <label for="form-dataNasc">Data de nascimento *</label>
                 <input type="text" id="form-cbj" (input)="this.newClient.cbj = $event.target.value" [value]="this.newClient.cbj"> <label for="form-cbj">CBJ *</label>
@@ -28,11 +31,16 @@
                 <input type="text" id="form-ob" (input)="this.newClient.ob = $event.target.value" [value]="this.newClient.ob"> <label for="form-ob">OB</label>
             </div>
 
+            <div class="form" *ngIf="registerType == 4">
+                <input type="text" id="form-entity-nome" (input)="this.newEntity.nome = $event.target.value" [value]="this.newEntity.nome"> <label for="form-entity-nome">Nome *</label>
+                <input type="text" id="form-entity-cnpj" (input)="this.newEntity.cnpj = $event.target.value" [value]="this.newEntity.cnpj"> <label for="form-entity-cnpj">CNPJ *</label>
+            </div>
+
             <span class="small-tip">Campos marcados com * são obrigatórios</span>
 
             <div class="button-container">
-                <div class="button" (click)="registerType = 0">Voltar</div>
-                <div class="button" (click)="registerClient()">Registrar</div>
+                <div class="button" (click)="redirectTo('register'); this.registerType = 0">Voltar ao menu inicial</div>
+                <div class="button" (click)="this.registerType == 3 ? updateClient() : this.registerType == 4 ? registerEntity() : registerClient()">{{this.registerType == 3 ? 'Atualizar' : 'Registrar'}}</div>
             </div>
         </div>
     </div>

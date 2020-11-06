@@ -1,6 +1,7 @@
 <span class="message" *ngIf="message"> {{message}} </span>
 
 <div class="data-container" *ngIf="customer">
+    <span>ID: {{customer.id}}</span>
     <span>Nome: {{customer.nome}}</span>
     <span>Nascimento: {{customer.dataNasc}}</span>
     <span>Cadastrado em: {{customer.dataCadastro}}</span>
@@ -12,8 +13,19 @@
     <span>RG: {{customer.rg}}</span>
     <span>Orgão expedidor: {{customer.org}}</span>
     <span>Observação: {{customer.ob}}</span>
+    <span>Tipo: {{customer.tipo}}</span>
+</div>
 
-    <div class="button-container">
-        <div class="button" (click)="redirectTo('/register')">Voltar</div>
+<div class="data-container" *ngIf="entityList">
+    <div *ngFor="let entity of entityList">
+        <span>> ID: {{entity.id}},</span>
+        <span>Nome: {{entity.nome}}, </span>
+        <span>Cadastrado em: {{entity.dataCadastro}}, </span>
+        <span>CNPJ: {{entity.cnpj}}.</span>
     </div>
+</div>
+
+<div class="button-container">
+    <div class="button" (click)="redirectTo('/register')" *ngIf="message != 'Buscando...'">Voltar</div>
+    <div class="button" (click)="redirectTo('/update/'+customer.cpf)" *ngIf="customer">Atualizar Cadastro</div>
 </div>

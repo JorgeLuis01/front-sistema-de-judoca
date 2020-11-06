@@ -5,8 +5,9 @@ import { SearchComponent } from './components/search/search.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'register', pathMatch: 'full'},
-  { path: 'register', component: RegisterComponent },
-  { path: 'search/:cpf', component: SearchComponent },
+  {path: 'register', component: RegisterComponent },
+  {path: 'search/:cpf', component: SearchComponent },
+  {path: 'update/:cpf', component: RegisterComponent },
 ];
 
 @NgModule({

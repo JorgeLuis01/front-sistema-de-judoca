@@ -1,14 +1,14 @@
-.data-container {
+.data-container, .button-container {
     display: flex;
     flex-direction: column;
     margin: 20px;
 }
 
 .message {
-    margin: 10px;
+    margin: 20px;
 }
 
-.data-container .button-container .button {
+.button-container .button {
     text-align: center;
     width: 250px;
     padding: 10px 20px 10px 30px;
@@ -20,7 +20,7 @@
     margin: 10px 0px 0px 0px;
 }
 
-.data-container .button-container .button:hover {
+.button-container .button:hover {
     box-shadow: unset;
     position: relative;
     top: 4px;

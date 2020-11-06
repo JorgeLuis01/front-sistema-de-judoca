@@ -11,4 +11,5 @@ export interface clienteJudocaInterface {
     ob? : string;
     dataCadastro? : string;
     id? : string;
+    tipo : string;
 }
